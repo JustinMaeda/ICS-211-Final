@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.user.username }}'s Profile</title>
+</head>
+<body>
+    <h1>{{ profile.user.username }}'s Profile</h1>
+    <p>Bio: {{ profile.bio }}</p>
+    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    <a href="{% url 'thread_list' %}">Exit</a>
+</body>
+</html>
