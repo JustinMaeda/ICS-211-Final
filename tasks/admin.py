@@ -10,7 +10,6 @@ class ProjectAdmin(admin.ModelAdmin):
     date_hierarchy = 'due_date'
 
 
-# Register the Task model
 class TaskAdmin(admin.ModelAdmin):
     list_display = ('title', 'project', 'assigned_to', 'status', 'due_date', 'created_at')
     search_fields = ('title', 'description')
