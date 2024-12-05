@@ -13,7 +13,7 @@ def register(request):
             return redirect('thread_list')
     else:
         form = UserRegistrationForm()
-    return render(request, 'forum_website/register.html', {'form': form})
+    return render(request, 'placeholder', {'form': form})
 
 
 def login_view(request):
@@ -24,7 +24,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect('thread_list')
-    return render(request, 'forum_website/login.html')
+    return render(request, 'placeholder')
 
 
 @login_required
@@ -36,7 +36,7 @@ def logout_view(request):
 @login_required
 def profile_view(request):
     profile = get_object_or_404(Profile, user=request.user)
-    return render(request, 'forum_website/profile_view.html', {'profile': profile})
+    return render(request, 'placeholder', {'profile': profile})
 
 @login_required
 def edit_profile(request):
@@ -48,7 +48,7 @@ def edit_profile(request):
             return redirect('profile_view')
     else:
         form = ProfileForm(instance=profile)
-    return render(request, 'forum_website/edit_profile.html', {'form': form})
+    return render(request, 'placeholder', {'form': form})
 
 @login_required
 def create_project(request):
@@ -61,9 +61,9 @@ def create_project(request):
             return redirect('project_list')
     else:
         form = ProjectForm()
-    return render(request, 'tasks/create_project.html', {'form': form})
+    return render(request, 'placeholder', {'form': form})
 
 @login_required
 def project_list(request):
     projects = Project.objects.filter(created_by=request.user)
-    return render(request, 'tasks/project_list.html', {'projects': projects})
+    return render(request, 'placeholder', {'projects': projects})
