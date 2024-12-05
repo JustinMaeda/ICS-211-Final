@@ -1,0 +1,13 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+<h3>Your Projects</h3>
+<ul>
+    {% for project in projects %}
+    <li><a href="{% url 'project_detail' project.id %}">{{ project.title }}</a></li>
+    {% empty %}
+    <p>No projects found. Create one!</p>
+    {% endfor %}
+</ul>
+{% endblock %}
