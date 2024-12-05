@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from .forms import ProjectForm, UserRegistrationForm, ProfileForm
+from .models import Profile, Project
 
 def register(request):
     if request.method == 'POST':
@@ -48,3 +50,20 @@ def edit_profile(request):
         form = ProfileForm(instance=profile)
     return render(request, 'forum_website/edit_profile.html', {'form': form})
 
+@login_required
+def create_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.created_by = request.user
+            project.save()
+            return redirect('project_list')
+    else:
+        form = ProjectForm()
+    return render(request, 'tasks/create_project.html', {'form': form})
+
+@login_required
+def project_list(request):
+    projects = Project.objects.filter(created_by=request.user)
+    return render(request, 'tasks/project_list.html', {'projects': projects})
