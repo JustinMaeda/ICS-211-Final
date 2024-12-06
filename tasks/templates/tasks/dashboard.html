@@ -9,5 +9,6 @@
     {% empty %}
     <p>No projects found. Create one!</p>
     {% endfor %}
+    <li><a href="{% url 'create_project' %}">New Project</a></li>
 </ul>
 {% endblock %}
