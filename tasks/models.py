@@ -8,6 +8,8 @@ class Project(models.Model):
     description = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     due_date = models.DateTimeField()
+    status_choices = [('not_started', 'Not Started'), ('in_progress', 'In Progress'), ('completed', 'Completed')]
+    status = models.CharField(max_length=50, choices=status_choices, default='not_started')
 
     def __str__(self):
         return self.name
