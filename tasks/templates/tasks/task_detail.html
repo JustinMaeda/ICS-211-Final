@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Task: {{ task.title }}</h2>
-<p><strong>Project:</strong> <a href="{% url 'project_detail' task.project.id %}">{{ task.project.title }}</a></p>
+<p><strong>Project:</strong> <a href="{% url 'project_detail' task.project.id %}">{{ task.project.name }}</a></p>
 <p><strong>Description:</strong> {{ task.description }}</p>
 <p><strong>Due Date:</strong> {{ task.due_date }}</p>
 <p><strong>Status:</strong> {{ task.get_status_display }}</p>
