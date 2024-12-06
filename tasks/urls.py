@@ -1,11 +1,12 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 from django.contrib import admin
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.dashboard, name='dashboard'),
+    path('', views.guest_login_view, name='guest_login'),
+    path('dashboard', views.dashboard, name='dashboard'),
     path('project/<int:project_id>/', views.project_detail, name='project_detail'),
     path('task/<int:task_id>/', views.task_detail, name='task_detail'),
     path('create_project/', views.create_project, name='create_project'),
