@@ -1,8 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from django.contrib import admin
+
 
 urlpatterns = [
-    path('/', views.dashboard, name='dashboard'),
+    path('admin/', admin.site.urls),
+    path('', views.dashboard, name='dashboard'),
     path('project/<int:project_id>/', views.project_detail, name='project_detail'),
     path('task/<int:task_id>/', views.task_detail, name='task_detail'),
     path('create_project/', views.create_project, name='create_project'),
