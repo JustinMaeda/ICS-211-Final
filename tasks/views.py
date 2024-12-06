@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import ProjectForm, UserRegistrationForm, ProfileForm, TaskForm, CommentForm
 from .models import Profile, Project, Task
 
-
+@login_required
 def dashboard(request):
     projects = Project.objects.filter(created_by=request.user)
     return render(request, 'tasks/dashboard.html', {'projects': projects})
@@ -30,7 +30,18 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect('dashboard')
-    return render(request, 'tasks.login.html')
+    return render(request, 'tasks/login.html')
+
+
+def guest_login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
+    return render(request, 'tasks/guest_login.html')
 
 
 @login_required
