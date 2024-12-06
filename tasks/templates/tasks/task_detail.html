@@ -1,0 +1,20 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>Task: {{ task.title }}</h2>
+<p><strong>Project:</strong> <a href="{% url 'project_detail' task.project.id %}">{{ task.project.title }}</a></p>
+<p><strong>Description:</strong> {{ task.description }}</p>
+<p><strong>Due Date:</strong> {{ task.due_date }}</p>
+<p><strong>Status:</strong> {{ task.get_status_display }}</p>
+
+<h3>Comments</h3>
+<ul>
+    {% for comment in comments %}
+    <li><strong>{{ comment.user.username }}:</strong> {{ comment.content }} ({{ comment.created_at }})</li>
+    {% empty %}
+    <p>No comments yet.</p>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'comment_task' task.id %}">Add a Comment</a>
+{% endblock %}

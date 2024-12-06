@@ -1,0 +1,20 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>Comment on task: {{ task.title }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Comment</button>
+</form>
+
+<h3>Comments</h3>
+<ul>
+    {% for comment in task.comments.all %}
+    <li><strong>{{ comment.user.username }}:</strong> {{ comment.content }} ({{ comment.created_at }})</li>
+    {% empty %}
+    <p>No comments yet.</p>
+    {% endfor %}
+</ul>
+{% endblock %}
