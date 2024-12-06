@@ -4,10 +4,10 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import ProjectForm, UserRegistrationForm, ProfileForm, TaskForm, CommentForm
 from .models import Profile, Project, Task
 
-@login_required
+
 def dashboard(request):
     projects = Project.objects.filter(created_by=request.user)
-    return render(request, 'dashboard', {'projects': projects})
+    return render(request, 'tasks/dashboard.html', {'projects': projects})
 
 
 def register(request):
@@ -19,7 +19,7 @@ def register(request):
             return redirect('dashboard')
     else:
         form = UserRegistrationForm()
-    return render(request, 'register', {'form': form})
+    return render(request, 'tasks/register.html', {'form': form})
 
 
 def login_view(request):
@@ -30,19 +30,19 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect('dashboard')
-    return render(request, 'login')
+    return render(request, 'tasks.login.html')
 
 
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('login')
 
 
 @login_required
 def profile_view(request):
     profile = get_object_or_404(Profile, user=request.user)
-    return render(request, 'profile_view', {'profile': profile})
+    return render(request, 'tasks/profile_view.html', {'profile': profile})
 
 @login_required
 def edit_profile(request):
@@ -54,7 +54,7 @@ def edit_profile(request):
             return redirect('profile_view')
     else:
         form = ProfileForm(instance=profile)
-    return render(request, 'edit_profile', {'form': form})
+    return render(request, 'tasks/edit_profile.html', {'form': form})
 
 @login_required
 def create_project(request):
@@ -67,14 +67,14 @@ def create_project(request):
             return redirect('dashboard')
     else:
         form = ProjectForm()
-    return render(request, 'create_project', {'form': form})
+    return render(request, 'tasks/create_project.html', {'form': form})
 
 
 @login_required
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     tasks = project.tasks.all()
-    return render(request, 'project_detail', {'project': project, 'tasks': tasks})
+    return render(request, 'tasks/project_detail.html', {'project': project, 'tasks': tasks})
 
 
 @login_required
@@ -92,7 +92,7 @@ def create_task(request, project_id):
     else:
         form = TaskForm()
 
-    return render(request, 'create_task', {'form': form, 'project': project})
+    return render(request, 'tasks/create_task.html', {'form': form, 'project': project})
 
 
 @login_required
@@ -100,7 +100,7 @@ def task_detail(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     comments = task.comments.all()
 
-    return render(request, 'task_detail', {'task': task, 'comments': comments})
+    return render(request, 'tasks/task_detail.html', {'task': task, 'comments': comments})
 
 
 @login_required
@@ -115,7 +115,7 @@ def edit_task(request, task_id):
     else:
         form = TaskForm(instance=task)
 
-    return render(request, 'edit_task', {'form': form, 'task': task})
+    return render(request, 'tasks/edit_task,html', {'form': form, 'task': task})
 
 
 @login_required
@@ -133,4 +133,4 @@ def comment_task(request, task_id):
     else:
         form = CommentForm()
 
-    return render(request, 'comment_task', {'form': form, 'task': task})
+    return render(request, 'tasks/comment_task.html', {'form': form, 'task': task})
