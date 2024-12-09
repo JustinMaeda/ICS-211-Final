@@ -6,7 +6,7 @@
 <p><strong>Description:</strong> {{ task.description }}</p>
 <p><strong>Due Date:</strong> {{ task.due_date }}</p>
 <p><strong>Status:</strong> {{ task.get_status_display }}</p>
-
+<a href="{% url 'edit_task' task.id %}">Edit Task</a>
 <h3>Comments</h3>
 <ul>
     {% for comment in comments %}

@@ -126,7 +126,7 @@ def edit_task(request, task_id):
     else:
         form = TaskForm(instance=task)
 
-    return render(request, 'tasks/edit_task,html', {'form': form, 'task': task})
+    return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
 
 
 @login_required
